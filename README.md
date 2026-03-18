@@ -6,42 +6,11 @@ Berikut **README.md lengkap** siap copy-paste:
 Project ini mengimplementasikan IoT pipeline untuk monitoring parameter listrik (voltage, current, power, energy, power factor, frequency) sesuai dengan spesifikasi tugas DigitalSkola Cloud Engineering.
 
 ## 🏗️ Architecture
-
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│           IOT ENERGY MONITORING PIPELINE                        │
-│                     DigitalSkola                                │
-└─────────────────────────────────────────────────────────────────┘
+![arsitektur - Copy](https://github.com/user-attachments/assets/45a4dee8-9eb0-4371-b752-0bd525099601)
 
-┌──────────────┐      MQTT:8883      ┌──────────────┐
-│   FAKE       │  ═══════════════════►│   CLOUD      │
-│   DEVICE     │      (SSL/TLS)       │   AMQP       │
-│  (Python)    │◄═════════════════════│  (LavinMQ)   │
-└──────────────┘      MQTT:8883       └──────┬───────┘
-                                             │
-                                             │ MQTT:8883
-                                             ▼
-                                      ┌──────────────┐
-                                      │   CONSUMER   │
-                                      │   (Python)   │
-                                      └──────┬───────┘
-                                             │
-                                             │ HTTP:8086
-                                             ▼
-                                      ┌──────────────┐
-                                      │   INFLUXDB   │
-                                      │  (Time-Series│
-                                      │   Database)  │
-                                      └──────┬───────┘
-                                             │
-                                             │ HTTP:3000
-                                             ▼
-                                      ┌──────────────┐
-                                      │   GRAFANA    │
-                                      │  (Dashboard  │
-                                      │  Visualizer) │
-                                      └──────────────┘
-```
+
+
 
 **Komponen:**
 - **Fake Device**: Simulator meter listrik menggunakan Python + Paho-MQTT
