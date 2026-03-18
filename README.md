@@ -95,7 +95,7 @@ Device mengirimkan telemetry dengan 7 field sesuai spesifikasi:
   "current": 4.2,
   "power": 967.3,
   "energy": 15.61,
-  "power_factor": 0.94,
+  "power_factor": 0.94, l
   "frequency": 50.0
 }
 ```
