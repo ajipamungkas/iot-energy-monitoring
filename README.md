@@ -8,15 +8,39 @@ Project ini mengimplementasikan IoT pipeline untuk monitoring parameter listrik 
 ## 🏗️ Architecture
 
 ```
-[Fake Device Python] 
-    ↓ MQTT SSL (Port 8883)
-[CloudAMQP/LavinMQ - Message Broker]
-    ↓ MQTT SSL (Port 8883)
-[Consumer Python - Ingestion Service]
-    ↓ HTTP (Port 8086)
-[InfluxDB - Time Series Database]
-    ↓ HTTP (Port 3000)
-[Grafana - Visualization Dashboard]
+┌─────────────────────────────────────────────────────────────────┐
+│           IOT ENERGY MONITORING PIPELINE                        │
+│                     DigitalSkola                                │
+└─────────────────────────────────────────────────────────────────┘
+
+┌──────────────┐      MQTT:8883      ┌──────────────┐
+│   FAKE       │  ═══════════════════►│   CLOUD      │
+│   DEVICE     │      (SSL/TLS)       │   AMQP       │
+│  (Python)    │◄═════════════════════│  (LavinMQ)   │
+└──────────────┘      MQTT:8883       └──────┬───────┘
+                                             │
+                                             │ MQTT:8883
+                                             ▼
+                                      ┌──────────────┐
+                                      │   CONSUMER   │
+                                      │   (Python)   │
+                                      └──────┬───────┘
+                                             │
+                                             │ HTTP:8086
+                                             ▼
+                                      ┌──────────────┐
+                                      │   INFLUXDB   │
+                                      │  (Time-Series│
+                                      │   Database)  │
+                                      └──────┬───────┘
+                                             │
+                                             │ HTTP:3000
+                                             ▼
+                                      ┌──────────────┐
+                                      │   GRAFANA    │
+                                      │  (Dashboard  │
+                                      │  Visualizer) │
+                                      └──────────────┘
 ```
 
 **Komponen:**
@@ -37,7 +61,7 @@ Project ini mengimplementasikan IoT pipeline untuk monitoring parameter listrik 
 
 ### 1. Clone & Setup
 ```bash
-git clone https://github.com/username/iot-energy-monitoring.git
+git clone https://github.com/ajipamungkas/iot-energy-monitoring.git
 cd iot-energy-monitoring
 ```
 
@@ -131,6 +155,11 @@ Lihat folder `docs/` untuk bukti sistem berjalan:
 - `screenshot-device.png`: Terminal fake device mengirim JSON
 - `screenshot-influxdb.png`: Query result di InfluxDB CLI
 - `screenshot-grafana.png`: Dashboard real-time lengkap 4 panel
+![run consumer py](https://github.com/user-attachments/assets/7d03107b-91a3-4631-8c68-c5c62eabc1e7)
+
+![GRAFANA](https://github.com/user-attachments/assets/c44dfeed-1b04-4ea2-8f88-f44cb9d6f112)
+
+  
 
 ## 🔧 Troubleshooting
 
@@ -154,13 +183,6 @@ Lihat folder `docs/` untuk bukti sistem berjalan:
 [Setya aji Pamungkas] - [Batch 3]  
 DigitalSkola Cloud Engineering
 
-## 📚 References
-- DigitalSkola IoT Project Instructions PDF
-- InfluxDB Documentation 1.8
-- Paho-MQTT Python Client
-- Grafana Documentation
-```
-
 **Jangan lupa juga buat file `requirements.txt`:**
 ```txt
 paho-mqtt>=1.6.0
@@ -168,13 +190,4 @@ influxdb>=5.3.1
 pyopenssl>=23.0.0
 ```
 
-**Langkah push ke GitHub:**
-```bash
-git init
-git add .
-git commit -m "feat: complete IoT energy monitoring pipeline with MQTT, InfluxDB, Grafana"
-git branch -M main
-git remote add origin https://github.com/username/repo-name.git
-git push -u origin main
-```
 
