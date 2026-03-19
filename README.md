@@ -1,4 +1,3 @@
-Berikut **README.md lengkap** siap copy-paste:
 
 ```markdown
 # IoT Energy Monitoring Pipeline - DigitalSkola
